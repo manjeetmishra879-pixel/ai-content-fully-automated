@@ -40,6 +40,16 @@ ollama
 httpx
 requests
 tenacity
+sentence-transformers
+transformers
+torch
+scikit-learn==1.3.2
+
+# ============================================================================
+# Vector Databases
+# ============================================================================
+chromadb
+qdrant-client
 
 # ============================================================================
 # Media: Image / Video / Audio
@@ -47,6 +57,7 @@ tenacity
 Pillow
 ffmpeg-python
 pydub
+opencv-python
 
 # ============================================================================
 # Web scraping & social APIs
@@ -85,3 +96,9 @@ structlog
 tenacity
 tweepy
 tzlocal
+sentence-transformers
+transformers
+torch
+chromadb
+qdrant-client
+opencv-python

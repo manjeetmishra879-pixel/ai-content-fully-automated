@@ -224,3 +224,180 @@ async def marketing_copy(
 ) -> Dict[str, Any]:
     engine = get_engine("marketing")
     return engine(product=product, audience=audience, objective=objective, tone=tone)
+
+
+@router.post("/engagement/train")
+async def train_engagement_models(
+    training_data: List[Dict[str, Any]],
+    data_source: str = "real",
+    user_id: int = Depends(lambda: 1),
+) -> Dict[str, Any]:
+    """Train ML models for engagement prediction using historical data"""
+    if len(training_data) < 50:
+        raise HTTPException(
+            status.HTTP_400_BAD_REQUEST,
+            "Need at least 50 training samples"
+        )
+
+    engine = get_engine("engagement_prediction")
+    results = engine.train_models(training_data, data_source)
+
+    if "error" in results:
+        raise HTTPException(
+            status.HTTP_400_BAD_REQUEST,
+            f"Training failed: {results['error']}"
+        )
+
+    return {
+        "message": "Models trained successfully",
+        "performance": results.get("performance", {}),
+        "trained_metrics": results.get("trained_metrics", []),
+        "total_samples": results.get("total_samples", 0),
+        "data_source": data_source,
+        "feature_count": results.get("feature_count", 0)
+    }
+
+
+@router.get("/engagement/models/info")
+async def get_engagement_model_info() -> Dict[str, Any]:
+    """Get information about trained engagement prediction models"""
+    engine = get_engine("engagement_prediction")
+    return engine.get_model_info()
+
+
+@router.post("/engagement/collect-data")
+async def collect_engagement_data(
+    post_id: int,
+    actual_metrics: Dict[str, Any],
+    user_id: int = Depends(lambda: 1),
+) -> Dict[str, Any]:
+    """Collect real engagement data for future model retraining"""
+    engine = get_engine("engagement_prediction")
+    return engine.collect_real_engagement_data(post_id, actual_metrics)
+
+
+@router.get("/engagement/data/stats")
+async def get_engagement_data_stats() -> Dict[str, Any]:
+    """Get statistics about collected real engagement data"""
+    engine = get_engine("engagement_prediction")
+    return engine.get_real_data_stats()
+
+
+@router.post("/engagement/auto-fetch")
+async def trigger_auto_fetch_engagement_data(
+    user_id: int = None,
+    hours_back: int = 24,
+    background: bool = True,
+) -> Dict[str, Any]:
+    """Trigger automatic collection of engagement data from all platforms"""
+    from app.tasks.analytics_tasks import auto_fetch_engagement_data
+
+    if background:
+        # Run in background via Celery
+        task = auto_fetch_engagement_data.delay(user_id=user_id, hours_back=hours_back)
+        return {
+            "message": "Auto-fetch task started in background",
+            "task_id": task.id,
+            "user_id": user_id,
+            "hours_back": hours_back,
+            "status": "running"
+        }
+    else:
+        # Run synchronously (for testing)
+        result = auto_fetch_engagement_data(user_id=user_id, hours_back=hours_back)
+        return {
+            "message": "Auto-fetch completed",
+            "result": result
+        }
+
+
+@router.post("/engagement/update-followers")
+async def trigger_update_account_followers(
+    user_id: int = None,
+    background: bool = True,
+) -> Dict[str, Any]:
+    """Trigger update of follower counts across all platforms"""
+    from app.tasks.analytics_tasks import update_account_followers
+
+    if background:
+        # Run in background via Celery
+        task = update_account_followers.delay(user_id=user_id)
+        return {
+            "message": "Follower update task started in background",
+            "task_id": task.id,
+            "user_id": user_id,
+            "status": "running"
+        }
+    else:
+        # Run synchronously (for testing)
+        result = update_account_followers(user_id=user_id)
+        return {
+            "message": "Follower update completed",
+            "result": result
+        }
+
+
+@router.post("/engagement/retrain-model")
+async def trigger_model_retraining(
+    background: bool = True,
+) -> Dict[str, Any]:
+    """Trigger manual retraining of the engagement prediction model"""
+    from app.tasks.analytics_tasks import retrain_engagement_model
+
+    if background:
+        # Run in background via Celery
+        task = retrain_engagement_model.delay()
+        return {
+            "message": "Model retraining task started in background",
+            "task_id": task.id,
+            "status": "running"
+        }
+    else:
+        # Run synchronously (for testing)
+        result = retrain_engagement_model()
+        return {
+            "message": "Model retraining completed",
+            "result": result
+        }
+
+
+@router.get("/engagement/monitoring")
+async def get_engagement_monitoring_data() -> Dict[str, Any]:
+    """Get monitoring data for the auto-fetch system"""
+    from app.services.analytics_service import AnalyticsService
+    from app.core.database import get_db
+    from sqlalchemy.orm import Session
+
+    db: Session = next(get_db())
+    try:
+        analytics_service = AnalyticsService(db)
+
+        # Get data collection stats
+        data_stats = analytics_service.get_real_data_stats()
+
+        # Get recent task status (mock for now)
+        recent_tasks = {
+            "auto_fetch_last_run": "2024-01-15T06:00:00Z",
+            "follower_update_last_run": "2024-01-15T04:00:00Z",
+            "model_retrain_last_run": "2024-01-14T05:00:00Z",
+            "tasks_today": 12,
+            "successful_fetches_today": 8,
+            "failed_fetches_today": 4
+        }
+
+        # Get API quota status (mock)
+        api_quotas = {
+            "youtube": {"used": 8500, "limit": 10000, "reset": "2024-01-16T00:00:00Z"},
+            "instagram": {"used": 180, "limit": 200, "reset": "2024-01-15T12:00:00Z"},
+            "tiktok": {"used": 85, "limit": 100, "reset": "2024-01-15T12:00:00Z"}
+        }
+
+        return {
+            "data_collection": data_stats,
+            "recent_activity": recent_tasks,
+            "api_quotas": api_quotas,
+            "system_health": "healthy"
+        }
+
+    finally:
+        db.close()

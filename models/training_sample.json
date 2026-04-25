@@ -1,0 +1,168 @@
+[
+  {
+    "script": "This is a sample script about lifestyle with some content.",
+    "hooks": [
+      "Why this happens",
+      "Stop scrolling!"
+    ],
+    "hashtags": [
+      "#fyp",
+      "#lifehacks",
+      "#viral"
+    ],
+    "ctas": [
+      "Share with friends"
+    ],
+    "platform": "linkedin",
+    "duration_s": 53.04488981628663,
+    "trend_score": 61.59406584786957,
+    "quality_data": {
+      "score": 58.03555762489408,
+      "components": {
+        "hook_strength": 41.62396482957601,
+        "engagement_signals": 3.5920071145963477,
+        "originality": 3.2782814547175496
+      }
+    },
+    "completion_rate": 0.5065469291744733,
+    "like_rate": 0.02410711152497882,
+    "share_rate": 0.009509804924067467,
+    "skip_3s": 0.09738122833021065,
+    "skip_10s": 0.24672653541276335,
+    "skip_30s": 0.39607184249531596,
+    "virality": 28.887221441601685
+  },
+  {
+    "script": "This is a sample script about technology with some content.",
+    "hooks": [
+      "What really happens",
+      "How to fix this",
+      "Stop scrolling!"
+    ],
+    "hashtags": [
+      "#fyp",
+      "#trending",
+      "#lifehacks"
+    ],
+    "ctas": [
+      "Follow for more"
+    ],
+    "platform": "x",
+    "duration_s": 76.10063952375435,
+    "trend_score": 78.11914569351019,
+    "quality_data": {
+      "score": 31.808739214219415,
+      "components": {
+        "hook_strength": 74.25324125960283,
+        "engagement_signals": 6.910189990522918,
+        "originality": 9.86265817970026
+      }
+    },
+    "completion_rate": 0.43977450214981545,
+    "like_rate": 0.015089398274275108,
+    "share_rate": 0.0191404683579394,
+    "skip_3s": 0.1240901991400738,
+    "skip_10s": 0.2801127489250923,
+    "skip_30s": 0.4361352987101107,
+    "virality": 28.265047084023397
+  },
+  {
+    "script": "This is a sample script about lifestyle with some content.",
+    "hooks": [
+      "Why this happens"
+    ],
+    "hashtags": [
+      "#viral",
+      "#lifehacks",
+      "#motivation",
+      "#trending"
+    ],
+    "ctas": [
+      "Tag someone",
+      "Share with friends"
+    ],
+    "platform": "tiktok",
+    "duration_s": 21.74506088396263,
+    "trend_score": 13.74369345204819,
+    "quality_data": {
+      "score": 44.404043791359,
+      "components": {
+        "hook_strength": 54.28422913050855,
+        "engagement_signals": 10.005220319530473,
+        "originality": 3.9702612077906023
+      }
+    },
+    "completion_rate": 0.6880900562646163,
+    "like_rate": 0.06841858802646977,
+    "share_rate": 0.020100430953098308,
+    "skip_3s": 0.05,
+    "skip_10s": 0.15595497186769186,
+    "skip_30s": 0.2871459662412302,
+    "virality": 49.24749223711793
+  },
+  {
+    "script": "This is a sample script about technology with some content.",
+    "hooks": [
+      "What really happens",
+      "How to fix this"
+    ],
+    "hashtags": [
+      "#fyp",
+      "#trending",
+      "#motivation"
+    ],
+    "ctas": [
+      "Follow for more",
+      "Comment below"
+    ],
+    "platform": "youtube",
+    "duration_s": 29.202955671215193,
+    "trend_score": 87.49540209232279,
+    "quality_data": {
+      "score": 60.4961774584668,
+      "components": {
+        "hook_strength": 56.769705252984544,
+        "engagement_signals": 4.74555189437705,
+        "originality": 5.236564318598868
+      }
+    },
+    "completion_rate": 0.4367044921707933,
+    "like_rate": 0.029519082590032032,
+    "share_rate": 0.007525935277061228,
+    "skip_3s": 0.12531820313168265,
+    "skip_10s": 0.28164775391460334,
+    "skip_30s": 0.437977304697524,
+    "virality": 26.382370315662634
+  },
+  {
+    "script": "This is a sample script about business with some content.",
+    "hooks": [
+      "The truth about"
+    ],
+    "hashtags": [
+      "#fyp",
+      "#viral"
+    ],
+    "ctas": [
+      "Follow for more"
+    ],
+    "platform": "facebook",
+    "duration_s": 49.73241588186702,
+    "trend_score": 98.55818791377173,
+    "quality_data": {
+      "score": 36.59482921619874,
+      "components": {
+        "hook_strength": 63.93210877654798,
+        "engagement_signals": 10.302481884134105,
+        "originality": 5.5297141526492215
+      }
+    },
+    "completion_rate": 0.33978529034194827,
+    "like_rate": 0.0237827590118877,
+    "share_rate": 0.011065156994025294,
+    "skip_3s": 0.16408588386322068,
+    "skip_10s": 0.33010735482902587,
+    "skip_30s": 0.496128825794831,
+    "virality": 22.77402621366559
+  }
+]

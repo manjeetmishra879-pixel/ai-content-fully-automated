@@ -24,6 +24,19 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'fetch_analytics',
         'schedule': 60 * 60,  # Every hour
     },
+    'auto-fetch-engagement-data-every-6h': {
+        'task': 'app.tasks.analytics_tasks.auto_fetch_engagement_data',
+        'schedule': 6 * 60 * 60,  # Every 6 hours
+        'kwargs': {'hours_back': 24},  # Look back 24 hours
+    },
+    'update-account-followers-daily': {
+        'task': 'app.tasks.analytics_tasks.update_account_followers',
+        'schedule': crontab(hour=4, minute=0),  # Daily at 4 AM UTC
+    },
+    'check-and-retrain-model-daily': {
+        'task': 'app.tasks.analytics_tasks.retrain_engagement_model',
+        'schedule': crontab(hour=5, minute=0),  # Daily at 5 AM UTC
+    },
     'aggregate-metrics-daily': {
         'task': 'aggregate_metrics',
         'schedule': crontab(hour=1, minute=0),  # Daily at 1 AM UTC
